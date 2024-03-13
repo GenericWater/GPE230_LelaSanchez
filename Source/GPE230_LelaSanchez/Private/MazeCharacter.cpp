@@ -25,10 +25,34 @@ void AMazeCharacter::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
+// Lecture 1.5: Cameras and Movement
+
+// called to bind functionality to input on load!!!
 void AMazeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	// bind functions to input events
+	PlayerInputComponent->BindAxis("MoveFB", this, &AMazeCharacter::MoveFB);
+	PlayerInputComponent->BindAxis("MoveLR", this, &AMazeCharacter::MoveLR);
+	PlayerInputComponent->BindAxis("Rotate", this, &AMazeCharacter::Rotate);
+}
+
+// AddMovementInput and AddControllerYawInput are character functions
+// AddMovementInput() takes a direction and speed then moves the character.
+// AddControllerYawInput() takes a speed and rotates the Character that way
+void AMazeCharacter::MoveFB(float value)
+{
+	AddMovementInput(GetActorForwardVector(), value * moveSpeed);
+}
+
+void AMazeCharacter::MoveLR(float value)
+{
+	AddMovementInput(-GetActorRightVector(), value * moveSpeed);
+}
+
+void AMazeCharacter::Rotate(float value)
+{
+	AddControllerYawInput(value * rotationSpeed);
 }
 

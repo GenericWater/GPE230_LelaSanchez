@@ -1,14 +1,15 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "MazeGameMode.generated.h"
 
 // Lecture 1.5 Slide 31 importation of headers
 #include "GameFramework/DefaultPawn.h" // Lets us access and change the default pawn that player spawn as
 #include "MazeCharacter.h" // Lets us access and change info from MazeCharacter C++ Class
+
+// .generated.h needs to be last include in include list*****************************
+#include "MazeGameMode.generated.h"
+
 
 /**
  * 
@@ -32,3 +33,5 @@ private: // Variabel to hold our custom default character
 	TSubclassOf<AMazeCharacter> DefaultPlayerCharacter = AMazeCharacter::StaticClass();
 	// AMazeCharacter::StaticClass(); represents the base class @ runtime 
 };
+
+// Fill out your copyright notice in the Description page of Project Settings.

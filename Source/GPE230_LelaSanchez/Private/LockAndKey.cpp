@@ -13,7 +13,7 @@ ALockAndKey::ALockAndKey()
 
 void ALockAndKey::CheckActorType(AActor* OverlappedActor, AActor* OtherActor) // Called when any actor enters our trigger
 {
-	UE_LOG(LogTemp, Log, TEXT("Verify AMazeCharacter - CheckActorType"));
+	//UE_LOG(LogTemp, Log, TEXT("Verify AMazeCharacter - CheckActorType"));
 
 	// If the other actor is a maze character 
 	if (OtherActor->IsA(AMazeCharacter::StaticClass()))
@@ -22,7 +22,7 @@ void ALockAndKey::CheckActorType(AActor* OverlappedActor, AActor* OtherActor) //
 
 void ALockAndKey::OpenTheDoor()
 {
-	UE_LOG(LogTemp, Log, TEXT("Door is open - OpenTheDoor"));
+	//UE_LOG(LogTemp, Log, TEXT("Door is open - OpenTheDoor"));
 
 	// Can add animations for door and key destroying
 	
@@ -32,7 +32,9 @@ void ALockAndKey::OpenTheDoor()
 
 void ALockAndKey::BeginPlay()
 {
-	UE_LOG(LogTemp, Log, TEXT("Lock is triggered - BeginPlay"));
+	Super::BeginPlay(); // Had to be added to ensure the lock and key would be destroyed on pickup
+
+	//UE_LOG(LogTemp, Log, TEXT("Door is locked - BeginPlay"));
 
 	// this - first parameter is object the trigger is on - any instance of this class
 	OnActorBeginOverlap.AddDynamic(this, &ALockAndKey::CheckActorType);

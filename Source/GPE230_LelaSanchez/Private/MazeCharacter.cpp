@@ -9,6 +9,8 @@ AMazeCharacter::AMazeCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// set jumping to false on start / load
+	jumping = false;
 }
 
 // Called when the game starts or when spawned
@@ -23,6 +25,12 @@ void AMazeCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// Jumping
+	if (jumping)
+	{
+		Jump(); // Uses UE5's default Jump function to jump
+	}
+
 }
 
 // Lecture 1.5: Cameras and Movement
@@ -36,6 +44,9 @@ void AMazeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis("MoveFB", this, &AMazeCharacter::MoveFB);
 	PlayerInputComponent->BindAxis("MoveLR", this, &AMazeCharacter::MoveLR);
 	PlayerInputComponent->BindAxis("Rotate", this, &AMazeCharacter::Rotate);
+
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AMazeCharacter::CheckJump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &AMazeCharacter::CheckJump);
 }
 
 // AddMovementInput and AddControllerYawInput are character functions
@@ -54,5 +65,17 @@ void AMazeCharacter::MoveLR(float value)
 void AMazeCharacter::Rotate(float value)
 {
 	AddControllerYawInput(value * rotationSpeed);
+}
+// Jump function created down here
+void AMazeCharacter::CheckJump()
+{
+	if (jumping)
+	{
+		jumping = false;
+	}
+	else
+	{
+		jumping = true;
+	}
 }
 

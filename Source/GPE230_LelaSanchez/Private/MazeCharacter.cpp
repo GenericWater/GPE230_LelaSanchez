@@ -66,7 +66,11 @@ void AMazeCharacter::Rotate(float value)
 {
 	AddControllerYawInput(value * rotationSpeed);
 }
+<<<<<<< HEAD
 // Custom Jump function created down here
+=======
+// Jump function created down here
+>>>>>>> ba4a27679e8ea881212323f74cd5efb71879360b
 void AMazeCharacter::CheckJump()
 {
 	if (jumping)

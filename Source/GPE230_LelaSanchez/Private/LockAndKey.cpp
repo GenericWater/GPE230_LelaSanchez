@@ -34,11 +34,8 @@ void ALockAndKey::BeginPlay()
 {
 	Super::BeginPlay(); // Had to be added to ensure the lock and key would be destroyed on pickup
 
-<<<<<<< HEAD
-	//UE_LOG(LogTemp, Log, TEXT("Door is locked - BeginPlay"));
-=======
 	UE_LOG(LogTemp, Log, TEXT("Door is locked - BeginPlay"));
->>>>>>> ba4a27679e8ea881212323f74cd5efb71879360b
+
 
 	// this - first parameter is object the trigger is on - any instance of this class
 	OnActorBeginOverlap.AddDynamic(this, &ALockAndKey::CheckActorType);

@@ -17,8 +17,14 @@ AMazeCharacter::AMazeCharacter()
 void AMazeCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// GPE230 Module 2 - Lecture 6.1 Damage Management
+
+	// initialize _currentHealth to the value from the details tab when game starts
+	_currentHealth = maxHealth; // sets health at beginning of game
 	
 }
+
 
 // Called every frame
 void AMazeCharacter::Tick(float DeltaTime)
@@ -79,5 +85,50 @@ void AMazeCharacter::CheckJump()
 	{
 		jumping = true;
 	}
+}
+
+
+// GPE230 Module 2 - Lecture 6.1 Damage Management
+
+/// <summary>
+/// Apply incoming damage to health and check if the player was killed.
+/// </summary>
+/// <param name="DamageAmount">The Amount of damage to be subtracted from current health. </param>
+/// <param name="DamageEvent"></param>
+/// <param name="EventInstigator"></param>
+/// <param name="DamageCauser"></param>
+/// <returns>The amount of damage taken.</returns>
+
+
+
+// needed to add "struct" before FDamageAmount
+float AMazeCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
+{
+	// Subtract incoming damage
+	_currentHealth -= DamageAmount; // -= is an operator that sets the first operand to its current value minus the value of the 2nd operand
+
+	// Debug printout - prints to the Output Log at bottom of Unreal
+	UE_LOG(LogTemp, Log, TEXT("Player took %f damage. %f health remaining."), DamageAmount, _currentHealth); //%f is a placeholder for float variables
+
+	// Check if player has died
+	if (_currentHealth <= 0)
+		Die();
+
+	return DamageAmount;
+}
+
+/// <summary>
+/// Stop player from moving, trigger game over status, and prompt player to restart the level.
+/// </summary>
+
+void AMazeCharacter::Die()
+{
+	// CAN ADD: Death animation
+
+	// Prevent player from moving
+	moveSpeed = 0;
+	rotationSpeed = 0;
+
+	//TODO: Trigger game over state and prompt player to restart level
 }
 

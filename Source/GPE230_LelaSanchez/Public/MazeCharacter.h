@@ -42,4 +42,30 @@ private:
 
 	UPROPERTY()
 	bool jumping;
+
+// GPE230 Module 2 - Lecture 6.1 Damage Management
+	// Health system implimentation
+public:
+	/// <summary>
+	/// The maximum starting health for this character
+	/// </summary>
+	UPROPERTY(EditAnywhere) // EditAnywhere property allows modification of the variable in the Details tab
+	float maxHealth;
+
+protected:
+	/// <summary>
+	/// The current health of this character
+	/// </summary>
+	float _currentHealth;
+
+protected:
+	// Called when the game starts or when spawned
+	
+	virtual void BeginPlay() override;
+	//virtual void BeginPlay();
+	
+
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
+	virtual void Die();
 };
